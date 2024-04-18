@@ -1,0 +1,278 @@
+doctype html
+html(lang="fr", prefix="og: https://ogp.me/ns# profile: https://ogp.me/ns/profile#")
+    head
+        base(href="/")
+        title= title
+        meta(name="description", content="Société de distribution de prospectus dans la région du grand-duché")
+        meta(name="author" content="DEV : loic Daniel / SCOOP : Blue screen")
+        meta(charset="utf-8")
+        meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+
+        meta(property="og:type", content="website")
+        meta(property="og:title", content="Distribution de prospectus")
+        meta(property="og:description", content="Société de distribution de prospectus dans la région du grand-duché")
+        meta(property="og:image", content="/images/website.png")
+        meta(property="og:url", content="https://distral-app.loicdaniel.fr/")
+        meta(property="og:locale", content="fr_FR")
+        meta(property="og:site_name", content="Distral S.A")
+
+        meta(property="profile:first_name", content="loic")
+        meta(property="profile:last_name", content="daniel")
+        meta(property="profile:username", content="loic.daniel")
+        meta(property="profile:gender", content="male")
+
+        link(rel='icon', href='/images/favicone.png')
+        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/components/font-awesome/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/components/ng-dialog/css/ngDialog.min.css')
+        link(rel='stylesheet', href='/components/ng-dialog/css/ngDialog-theme-default.min.css')
+        link(rel='stylesheet', href='/components/angular-material/angular-material.min.css')
+        link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        link(rel='stylesheet', href='/components/jquery-ui/themes/base/jquery-ui.css')
+        link(rel='stylesheet', href='/dist/style.css')
+
+        script(type="text/javascript", src="/components/jquery/dist/jquery.min.js")
+        script(type="text/javascript", src="/components/jquery-ui/jquery-ui.min.js")
+        //- script(type="text/javascript", src="/components/bootstrap/dist/js/bootstrap.min.js")
+        script(type="text/javascript", src="/components/lodash/dist/lodash.min.js")
+        script(type="text/javascript", src="/components/angular/angular.min.js")
+        script(type="text/javascript", src="/components/angular-simple-logger/dist/angular-simple-logger.min.js")
+
+        script(type="text/javascript", src="/components/angular-animate/angular-animate.min.js")
+        script(type="text/javascript", src="/components/angular-aria/angular-aria.min.js")
+        script(type="text/javascript", src="/components/angular-material/angular-material.min.js")
+        script(type="text/javascript", src="/components/angular-cookies/angular-cookies.min.js")
+        script(type="text/javascript", src="/components/angular-route/angular-route.min.js")
+        script(type="text/javascript", src="/components/angular-resource/angular-resource.min.js")
+
+        script(type="text/javascript", src="/components/angular-sanitize/angular-sanitize.min.js")
+        script(type="text/javascript", src="/components/ng-csv/build/ng-csv.min.js")
+
+        script(type="text/javascript", src="/components/moment/moment.js")
+        script(type="text/javascript", src="/components/angular-i18n/angular-locale_fr-fr.js")
+        script(type="text/javascript", src="/components/angular-moment/angular-moment.min.js")
+
+
+        script(type="text/javascript", src="/components/d3/d3.min.js")
+        //- script(type="text/javascript", src="/components/nvd3/build/nv.d3.min.js")
+        //- script(type="text/javascript", src="/components/angular-nvd3/dist/angular-nvd3.min.js")
+
+        script(type="text/javascript", src="/components/angular-touch/angular-touch.min.js")
+        script(type="text/javascript", src="/components/ng-dialog/js/ngDialog.min.js")
+        script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js")
+
+        script(type="text/javascript", src="/components/mangopay-cardregistration-js-kit/kit/mangopay-kit.min.js")
+
+        script(type="text/javascript", src="/dist/all.min.js")
+
+
+    body(ng-app="distralsa")
+        md-menu.hidden-xs(layout="row", layout-align="center center")
+            md-button.md-raised(aria-label="Choose your language", ng-click="openMenu($mdMenu, $event)")
+                md-icon(ng-style="{'font-size':'36px', 'width':'36px'}", md-menu-origin, md-svg-src="svg/fr.svg")
+                span &nbsp;
+                md-icon(ng-style="{'font-size':'44px', 'width':'44px'}", md-menu-origin, md-svg-src="svg/gb.svg")
+                span &nbsp;
+                md-icon(ng-style="{'font-size':'36px', 'width':'36px'}", md-menu-origin, md-svg-src="svg/de.svg")
+            md-menu-content
+                md-menu-item
+                    md-button(ng-click="changeLang($event, 'fr')")
+                        md-icon(md-menu-origin, md-svg-src="svg/fr.svg")
+                        span Français
+                md-menu-item
+                    md-button(ng-click="changeLang($event, 'en')")
+                        md-icon(md-menu-origin, md-svg-src="svg/gb.svg")
+                        span English
+                md-menu-item
+                    md-button(ng-click="changeLang($event, 'de')")
+                        md-icon(md-menu-origin, md-svg-src="svg/de.svg")
+                        span Deutch
+
+        block content
+    footer.footer
+        block footer
+
+    script(type="text/javascript", src="https://www.googletagmanager.com/gtag/js?id=G-XLE9MEMM6E")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XLE9MEMM6E');
+
+    script.
+
+        var runDatepicker = function() {
+            var startDate;
+            var endDate;
+            
+            var selectCurrentWeek = function() {
+                window.setTimeout(function () {
+                    $('.week-picker').find('.ui-datepicker-current-day a').addClass('ui-state-active')
+                }, 1);
+            }
+
+            Date.prototype.getNextWeekDay = function(d) {
+              if (d) {
+                var next = this;
+                next.setDate(this.getDate() - this.getDay() + 14 + d);
+                return next;
+              }
+            }
+
+            var now = new Date();
+            var nextMonday = now.getNextWeekDay(1);
+
+
+            $('.week-picker').datepicker({
+                closeText: 'Fermer',
+                prevText: 'Précédent',
+                nextText: 'Suivant',
+                currentText: 'Aujourd\'hui',
+                dateFormat: "yy-mm-dd",
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Sem.',
+                firstDay: 1 ,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                showWeek: true,
+                minDate: nextMonday,
+                onSelect: function(dateText, inst) { 
+                    var date = $(this).datepicker('getDate');
+                    startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+                    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+                    var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+                    $('#startDate').text($.datepicker.formatDate( dateFormat, startDate, inst.settings ));
+                    $('#endDate').text($.datepicker.formatDate( dateFormat, endDate, inst.settings ));
+                    
+                    selectCurrentWeek();
+                },
+                beforeShowDay: function(date) {
+                    var cssClass = '';
+                    if(date >= startDate && date <= endDate)
+                        cssClass = 'ui-datepicker-current-day';
+                    return [true, cssClass];
+                },
+                onChangeMonthYear: function(year, month, inst) {
+                    selectCurrentWeek();
+                },
+                onClose: function(dateText, inst) { 
+                    var wk = $.datepicker.iso8601Week(new Date(dateText));
+                    if (parseInt(wk) < 10) {
+                        wk = "0" + wk;
+                    }           
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+
+                    if (isNaN(wk)) {
+                        $(this).val("");
+                    } else {
+                        $(this).val("Semaine " + wk + " / " + year);
+                        $(this).trigger('input');
+                        $(this).trigger('change');
+                    }
+
+                    // disable live listeners so they dont impact other instances
+                    //- $(".ui-datepicker-calendar tr").unbind("mousemove");
+                    //- $(".ui-datepicker-calendar tr").unbind("mouseleave");
+                }
+            });
+
+            $(".week-picker").datepicker("setDate", new Date());
+
+            $('.week-picker .ui-datepicker-calendar tr').on('mouseenter', function() { $(this).find('td a').addClass('ui-state-hover'); });
+            $('.week-picker .ui-datepicker-calendar tr').on('mouseleave', function() { $(this).find('td a').removeClass('ui-state-hover'); });
+
+            
+
+        };
+
+
+
+
+
+        //- var C = {
+        //-     // Number of days before the cookie expires, and the banner reappears
+        //-     cookieDuration : 14,
+
+        //-     // Name of our cookie
+        //-     cookieName: 'complianceCookie',
+
+        //-     // Value of cookie
+        //-     cookieValue: 'on',
+
+        //-     // Message banner title
+        //-     bannerTitle: "Cookies:",
+
+        //-     // Message banner message
+        //-     bannerMessage: "Ce site utilise des cookies pour fournir ses services.",
+
+        //-     // Message banner dismiss button
+        //-     bannerButton: "OK",
+
+        //-     // Link to your cookie policy.
+        //-     bannerLinkURL: "/legal-docs/data-protection.html",
+
+        //-     // Link text
+        //-     bannerLinkText: "Read more",
+
+        //-     // Text alignment
+        //-     alertAlign: "center",
+            
+        //-     // Link text
+        //-     buttonClass: "btn-success btn-xs",    
+
+        //-     createDiv: function () {
+        //-         var banner = $(
+        //-             '<div class="alert alert-success alert-dismissible text-'+
+        //-              this.alertAlign +' fade in" ' +
+        //-             'role="alert" style="position: fixed; bottom: 0; width: 100%; ' +
+        //-             'margin-bottom: 0"><strong>' + this.bannerTitle + '</strong> ' +
+        //-             this.bannerMessage + ' <a href="' + this.bannerLinkURL + '">' +
+        //-             this.bannerLinkText + '</a> <button type="button" class="btn ' +
+        //-              this.buttonClass + '" onclick="C.createCookie(C.cookieName, C.cookieValue' +
+        //-             ', C.cookieDuration)" data-dismiss="alert" aria-label="Close">' +
+        //-             this.bannerButton + '</button></div>'
+        //-         )
+        //-         $("body").append(banner)
+        //-     },
+
+        //-     createCookie: function(name, value, days) {
+        //-         //console.log("Create cookie")
+        //-         var expires = ""
+        //-         if (days) {
+        //-             var date = new Date()
+        //-             date.setTime(date.getTime() + (days*24*60*60*1000))
+        //-             expires = "; expires=" + date.toGMTString()
+        //-         }
+        //-         document.cookie = name + "=" + value + expires + "; path=/";
+        //-     },
+
+        //-     checkCookie: function(name) {
+        //-         var nameEQ = name + "="
+        //-         var ca = document.cookie.split(';')
+        //-         for(var i = 0; i < ca.length; i++) {
+        //-             var c = ca[i]
+        //-             while (c.charAt(0)==' ')
+        //-                 c = c.substring(1, c.length)
+        //-             if (c.indexOf(nameEQ) == 0) 
+        //-                 return c.substring(nameEQ.length, c.length)
+        //-         }
+        //-         return null
+        //-     },
+
+        //-     init: function() {
+        //-         if (this.checkCookie(this.cookieName) != this.cookieValue)
+        //-             this.createDiv()
+        //-     }
+        //- };
+
+
+        //- $(document).ready(function(){C.init()});

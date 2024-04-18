@@ -1,0 +1,142 @@
+md-content.content(flex)
+	.row
+		.col-md-8
+			h1.titre.align-middle.text-center(style="padding-top:4%;") Distral S.A
+			h2.titre.align-middle.text-center(style="padding-top:4%;") {{ langData[54] }}
+		.col-md-4
+			img.image-responsive(src="/images/logo-1.png", width="45%")
+	br
+	br
+	br
+	
+	div.row
+		div.col-md-6
+			fieldset.scheduler-border
+				legend.scheduler-border {{ langData[1] }}
+
+				fieldset.scheduler-border-2
+					legend.scheduler-border-2
+						form.form-inline.row
+							div.form-group
+								label.national(for="national") {{ langData[3] }}&nbsp;&nbsp;
+								input(type="checkbox", id="national", ng-model="national", ng-click="changeMap($event)")
+					form.form-inline.row
+						div.form-group.col-md-3
+							label.nord(for="nord") {{ langData[4] }}&nbsp;&nbsp;
+							input(type="checkbox", id="nord", ng-model="nord", ng-click="changeMap($event)")
+						div.form-group.col-md-3
+							label.est(for="est") {{ langData[5] }}&nbsp;&nbsp;
+							input(type="checkbox", id="est", ng-model="est", ng-click="changeMap($event)")
+						div.form-group.col-md-3
+							label.sud(for="sud") {{ langData[6] }}&nbsp;&nbsp;
+							input(type="checkbox", id="sud", ng-model="sud", ng-click="changeMap($event)")
+						div.form-group.col-md-3
+							label.centre(for="centre") {{ langData[7] }}&nbsp;&nbsp;
+							input(type="checkbox", id="centre", ng-model="centre", ng-click="changeMap($event)")
+				div(d3-map, ctrl-ajout="ajout", ctrl-remove="remove", 
+					ctrl-ajout-multi="ajoutMulti", ctrl-remove-multi="removeMulti", ctrl-region-actif="addRegion"
+					cities="/data/prices.csv", 
+					map="/data/CARTE RETAPE4LOIC.svg",height="800",
+					regions="regions",zones-data="zones")
+		div.col-md-6
+			fieldset.scheduler-border-3
+				legend.scheduler-border {{ langData[8] }} ({{ zones.length }})
+				#listVille
+					table.table.table-striped
+						thead
+							tr
+								th {{ langData[9] }}
+								th Nb Net
+						tbody
+							tr(ng-repeat="zone in zones")
+								td {{ zone.name }}
+								td {{ zone.net }}
+								td(ng-click="remove(zone)") 
+									i.fa.fa-remove
+						tfoot
+							tr
+								td 
+									strong {{ langData[10] }}
+								td 
+									strong {{ sumNet }}
+							tr.ng-hide(ng-show="zones.length > 0")
+								td(align="right", colspan="3")
+									a.btn.btn-info.btn-lg(href="/carte", role="button", target="_blank")
+										i.fa.fa-download.fa-2x(aria-hidden="true")
+	form(ng-submit="saveCommande('/commande')")
+		div.row
+			div.col-md-12
+				fieldset.scheduler-border
+					legend.scheduler-border {{ langData[11] }}
+					br
+					br
+					div.form-group.row
+						label.text-right.col-sm-3.control-label(for="intitule") {{ langData[12] }} *
+						div.col-sm-4
+							input.form-control(required, type="text", id="intitule", name="intitule", ng-model="commande.intitule")
+					div.form-group.row
+						label.text-right.col-sm-3.control-label(for="poid") {{ langData[13] }} *
+						div.col-sm-2
+							select.form-control(required, ng-model="commande.poid", ng-change="calcTotal()")
+								option(value="1g - 20g", selected) 1g - 20g 
+								option(value="21g - 40g") 21g - 40g 
+								option(value="41g - 60g") 41g - 60g
+								option(value="61g - 100g") 61g - 100g
+								option(value="101g - 120g") 101g - 120g
+								option(value="121g - 150g") 121g - 150g 
+								option(value="151g - 200g") 151g - 200g
+								option(value="+ de 200g") + de 200g (Devis / Cotation)
+					div.form-group.row
+						label.text-right.col-sm-3.control-label {{ langData[14] }} *
+						label.checkbox-inline.col-sm-1
+							input(type="radio", name="format", ng-model="formatA6", ng-checked="commande.format=='A6'", ng-click="commande.format='A6'", id="A6", value="A6", checked)
+							span &nbsp;&nbsp;A6
+						label.checkbox-inline.col-sm-1
+							input(type="radio", name="format", ng-model="formatA5",ng-checked="commande.format=='A5'",  ng-click="commande.format='A5'", id="A5", value="A5")
+							span &nbsp;&nbsp;A5
+						label.checkbox-inline.col-sm-1
+							input(type="radio", name="format", ng-model="formatA4",ng-checked="commande.format=='A4'",  ng-click="commande.format='A4'", id="A4", value="A4")
+							span &nbsp;&nbsp;A4
+						div.form-group.row
+							label.col-sm-2.checkbox-inline {{ langData[15] }}
+							div.col-sm-10
+								input.form-control(type="text", name="format", ng-click="commande.format='Autre'", ng-model="formatAutre", ng-change="commande.format=formatAutre", id="Autre", value="A3")
+					//- div.form-group.row
+					//- 	label.text-right.col-sm-3 Contenu du document *
+					//- 	label.checkbox-inline.col-md-2
+					//- 		input(type="checkbox", ng-model="commande.contenu", id="Informatif", value="Informatif")
+					//- 		span &nbsp;&nbsp;Informatif
+					//- 	label.checkbox-inline.col-md-2
+					//- 		input(type="checkbox", ng-model="commande.contenu", id="Commercial", value="Commercial")
+					//- 		span &nbsp;&nbsp;Commercial
+					div.form-group.row
+						label.text-right.col-sm-3.control-label(for="distribution") {{ langData[16] }} *
+						div.col-sm-2
+							input.form-control.week-picker(type="text", name="distribution", ng-model="commande.distribution", required)
+
+					//- div.form-group.row
+					//- 	label.text-right.col-sm-3.control-label(for="distribution") {{ langData[56] }}
+					//- 	input.form-control(type="checkbox", ng-model="palette")
+					//- 	div.col-sm-2
+					//- 		input.form-control(type="number", name="distribution", ng-model="commande.nbPalette", ng-show="palette")
+
+					//- div.form-group.row
+					//- 	label.text-right.col-sm-3.control-label(for="codePromo") Code promos
+					//- 	div.col-sm-2
+					//- 		input.form-control(required, type="text", id="codePromo", name="codePromo", ng-model="commande.codePromo", ng-change="calcTotal()")
+		div.row
+			div.col-md-4.col-md-offset-2
+				h2 {{ langData[18] }} : {{ commande.totalHT >= 0 ? commande.totalHT+"&nbsp;€&nbsp;H.T" : "sur devis" }}
+			div.col-md-6
+				input.btn.btn-success.btn-lg.ng-hide(ng-show="zones.length > 0", type="submit", value="{{ langData[19] }}") 
+	br
+	br
+	br
+	br
+
+	p {{ langData[20] }}
+	p {{ langData[21] }}
+	p {{ langData[22] }}
+	p {{ langData[23] }}
+
+	p {{ langData[24] }}

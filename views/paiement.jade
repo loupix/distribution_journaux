@@ -1,0 +1,187 @@
+md-content.content(flex)
+	br
+	br
+	br
+	.row
+		.col-md-8
+			fieldset.scheduler-border
+				legend.scheduler-border {{ langData[38] }}
+				br
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[39] }}
+					h5.col-sm-4 {{ commande.total | number:2 }}&nbsp;€ TTC.
+				form#cardForm.horizontal-form(method="POST", action="/reglement")
+					div.form-group.row
+						label.radio-inline.col-sm-2.control-label
+							input(type="radio", name="cardType", value="CB_VISA_MASTERCARD", checked)
+							img(width="85%", src="/icons/cards/Light Color/1.png")
+						label.radio-inline.col-sm-2.control-label
+							input(type="radio", name="cardType", value="CB_VISA_MASTERCARD")
+							img(width="85%", src="/icons/cards/Light Color/2.png")
+						label.radio-inline.col-sm-2.control-label
+							input(type="radio", name="cardType", value="MAESTRO")
+							img(width="85%", src="/icons/cards/Light Color/3.png")
+						label.radio-inline.col-sm-2.control-label
+							input(type="radio", name="cardType", value="DINERS")
+							img(width="85%", src="/icons/cards/Light Color/10.png")
+
+					div.form-group.row
+						label.col-sm-3.control-label(for="cardNumber") {{ langData[40] }} *
+						div.col-sm-8
+							input.form-control(type="text", required, id="cardNumber", ng-model="paiement.carte", name="cardNumber", ng-change="typeCard($event)", maxlength="19")
+					div.form-group.row
+						label.col-sm-3.control-label(for="date") {{ langData[41] }} *
+						div.col-sm-8.row
+							div.col-md-6
+								select.form-control(ng-model="paiement.date.mois", required)
+									option(ng-repeat="i in mois track by $index", value="{{ i }}") {{ i }}
+							div.col-md-6
+								select.form-control(ng-model="paiement.date.year", required)
+									option(ng-repeat="i in years", value="{{ i }}") {{ i }}
+					div.form-group.row
+						label.col-sm-3.control-label(for="cardCvx") {{ langData[42] }} *
+						div.col-sm-3
+							input.form-control(type="text", maxlength="3", id="cardCvx", ng-model="paiement.crypto", required, name="cardCvx")
+					div.form-group.row
+						.col-md-5
+							//- input(type="hidden", name="data", id="data", value="#{client.cardRegistration.PreregistrationData}")
+							//- input(type="hidden", name="accessKeyRef", id="accessKeyRef", value="#{client.cardRegistration.AccessKey}")
+							//- input(type="hidden", name="cardRegistrationURL", id="cardRegistrationURL", value="#{client.cardRegistration.CardRegistrationURL}")
+							input(type="hidden", name="idCard", id="idCard", value="")
+							input(type="hidden", name="cardExpirationDate", id="cardExpirationDate", value="{{ paiement.date.mois }}{{ paiement.date.year[2] }}{{ paiement.date.year[3] }}")
+							input(type="hidden", name="returnURL", value="{{ paiement.cardRegistration.returnURL }}")
+							button.btn.btn-danger.btn-lg(ng-click="go('/commande')") {{ langData[37] }}
+						.col-md-5
+							input#btn_paiement.btn.btn-success.btn-lg(type="submit", value="{{ langData[52] }}")
+
+
+		.col-md-4
+			fieldset.scheduler-border
+				legend.scheduler-border {{ langData[43] }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[44] }}
+					h5.col-sm-6 {{ commande.intitule }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[45] }}
+					h5.col-sm-6 {{ commande.poid }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[46] }}
+					h5.col-sm-6 {{ commande.format }}
+				//- div.form-group.row
+				//- 	label.col-sm-4.control-label Contenu
+				//- 	h5.col-sm-6 {{ commande.contenu }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[47] }}
+					h5.col-sm-6 {{ commande.distribution }}
+				
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[48] }}
+					h5.col-sm-6 {{ commande.totalHT | number:2 }}&nbsp;€ 
+				div.form-group.row
+					label.col-sm-4.control-label TVA
+					h5.col-sm-6 {{ commande.totalHT * 0.17 | number:2 }}&nbsp;€
+				div.form-group.row
+					label.col-sm-4.control-label 
+						strong {{ langData[18] }}
+					h5.col-sm-6 
+						strong {{ commande.total | number:2 }}&nbsp;€&nbsp;T.T.C
+
+
+			br
+			br
+			br
+
+
+			fieldset.scheduler-border
+				legend.scheduler-border {{ langData[25] }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[26] }}
+					h5.col-sm-6 {{ client.entreprise }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[27] }}
+					h5.col-sm-6 {{ client.adresse }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[28] }}
+					h5.col-sm-6 {{ client.ville }} ({{ client.pays }})
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[30] }}
+					h5.col-sm-6 {{ client.activite }}
+				div.form-group.row
+					label.col-sm-4.control-label {{ langData[31] }}
+					h5.col-sm-6 {{ client.telephone }}
+				//- div.form-group.row
+				//- 	label.col-sm-4.control-label TVA
+				//- 	div.col-sm-8 {{ client.numTva }}
+	script.
+
+		$('input[type=text]').on('keydown', function(e) {
+			if (e.which == 13)
+				e.preventDefault();
+			
+		});
+
+
+		$('#cardForm').submit(function(event){
+
+			if (event.which == 13 || event.keyCode == 13)
+				return false;
+
+			var form = this;
+			
+
+			var valBtn = $("#btn_paiement").val();
+
+			$("#btn_paiement").val("..");
+
+			mangoPay.cardRegistration.baseURL = "#{config.mangopay.baseUrl}";
+			mangoPay.cardRegistration.clientId = "#{config.mangopay.clientId}";
+
+
+			mangoPay.cardRegistration.init({
+				cardRegistrationURL: "#{client.cardRegistration.CardRegistrationURL}", 
+				preregistrationData: "#{client.cardRegistration.PreregistrationData}", 
+				accessKey: "#{client.cardRegistration.AccessKey}",
+				Id: "#{client.cardRegistration.Id}"
+			});
+
+
+			// Register card
+
+
+			var cardData = {
+				cardNumber: $("#cardNumber").val(function(i, v) {return v.replace(/\s/g, '');}).val(), 
+				cardExpirationDate: $("#cardExpirationDate").val(), 
+				cardCvx: $("#cardCvx").val(),
+				cardType: $('input:radio[name="cardType"]:checked').val()
+			};
+
+
+			mangoPay.cardRegistration.registerCard(
+				cardData, 
+				function(res) {
+					// Success, you can use res.CardId now that points to registered card
+					console.log("success");
+					console.log(res);
+					$("#btn_paiement").val("...");
+					$("#idCard").val(res.Id);
+					$("#cardNumber").val(function(i, v) {return v.replace(/\s/g, '');});
+					form.submit();
+				},
+				function(err) {
+					//- if(err.code=="001596"){
+					//- 	$("#btn_paiement").val("...");
+					//- 	$("#idCard").val(res.Id);
+					//- 	$("#cardNumber").val(function(i, v) {return v.replace(/\s/g, '');});
+					//- 	form.submit();
+					//- }
+					// Handle error, see res.ResultCode and res.ResultMessage
+					console.log("Error");
+					console.log(err);
+
+					$("#btn_paiement").val(valBtn);
+					toastr.warning(err.ResultMessage);
+				}
+			);
+
+			event.preventDefault();
+		});

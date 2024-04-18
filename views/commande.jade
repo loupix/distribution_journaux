@@ -1,0 +1,84 @@
+md-content.content(flex)
+	br
+	br
+	br
+	form.form-horizontal(ng-submit="saveClient(false)")
+		fieldset.scheduler-border
+			legend.scheduler-border {{ langData[25] }}
+			br
+			div.form-group.row
+				label.col-sm-2.control-label(for="entreprise") {{ langData[26] }} *
+				div.col-sm-8
+					input.form-control(required, id="entreprise", ng-model="client.entreprise")
+			div.form-group.row
+				label.col-sm-2.control-label(for="adresse") {{ langData[27] }} *
+				div.col-sm-8
+					input.form-control(required, id="adresse", ng-model="client.adresse")
+			div.row
+				div.col-md-5
+					div.row.form-group
+						label.col-sm-5.control-label(for="ville") {{ langData[28] }} *
+						div.col-sm-6
+							input.form-control(required, id="ville", ng-model="client.ville")
+				div.col-md-5
+					div.row.form-group
+						label.col-sm-2.control-label(for="pays") {{ langData[29] }} *
+						div.col-sm-6
+							input.form-control(required, id="pays", ng-model="client.pays")
+			div.form-group.row
+				label.col-sm-2.control-label(for="activite") {{ langData[30] }}
+				div.col-sm-8
+					input.form-control(id="activite", ng-model="client.activite")
+			div.form-group.row
+				label.col-sm-2.control-label(for="telephone") {{ langData[31] }} *
+				div.col-sm-8
+					input.form-control(type="tel", required, id="telephone", ng-model="client.telephone" )
+			div.form-group.row
+				label.col-sm-2.control-label(for="email") {{ langData[32] }} *
+				div.col-sm-8
+					input.form-control(required, type="email", id="email", ng-model="client.email")
+			div.form-group.row
+				label.col-sm-2.control-label(for="tva") {{ langData[33] }}
+				div.col-sm-8
+					input.form-control(type="text", id="tva", ng-model="client.numTva")
+			div.form-group.row
+				label.col-sm-2.control-label(for="tva") {{ langData[34] }}
+				div.col-sm-8
+					input.form-control(id="tva", type="text", ng-model="client.numTvaIntra")
+		//- fieldset.scheduler-border
+		//- 	legend.scheduler-border Rappel de votre commande
+		//- 	br
+		//- 	h3.form-group.row 
+		//- 		div.col-md-4 Intitulé :
+		//- 		div.col-md-8 {{ commande.intitule }}
+		//- 	div.form-group.row
+		//- 		div.col-sm-4 Poids unitaire en g :
+		//- 		div.col-sm-8 {{ commande.poid }}
+		//- 	div.form-group.row
+		//- 		div.col-sm-4 Format :
+		//- 		div.col-sm-8 {{ commande.format }}
+		//- 	div.form-group.row
+		//- 		div.col-sm-4 Contenu du document :
+		//- 		div.col-sm-8 {{ commande.contenu }}
+		//- 	div.form-group.row
+		//- 		div.col-sm-4 Semaine de distribution :
+		//- 		div.col-sm-8 {{ commande.poid }}
+
+		//- 	fieldset.scheduler-border
+		//- 		legend.scheduler-border Zone de distribution
+		//- 		p Les villes dont on a clique
+
+		//- 	div.row
+		//- 		div.col-sm-4 
+		//- 			h2 Total HT :&nbsp;{{ commande.total }}€
+
+		div.row
+			div.col-md-4
+				button.btn.btn-lg.btn-danger(ng-click="saveClient('/accueil')") {{ langData[37] }}
+			//- div.col-md-4
+			//- 	input.btn.btn-lg.btn-info(type="submit", ng-click="path='/validation'", value="{{ langData[36] }}")
+			//-div.col-md-4.ng-hide(ng-show="commande.total>0")
+				input.btn.btn-lg.btn-success(type="submit", ng-click="path='/paiement'", value="{{ langData[35] }}")
+			//-div.col-md-4(ng-hide="commande.total>0")
+				input.btn.btn-lg.btn-info(type="submit", ng-click="path='/validation'", value="{{ langData[36] }}")
+			

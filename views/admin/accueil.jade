@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	div.admin.content(ng-controller="accueilCtrlAdmin")
+		div.row
+			div.col-md-offset-3.col-md-6
+				div.panel.panel-default
+					div.panel-heading
+						h3.panel-title Connexion Administrateur
+					div.panel-body
+						form(action="/admin/", method="POST")
+							div.form-group
+								label(for="username") Username
+								input.form-control(id="username", name="username")
+							div.form-group
+								label(for="password") Password
+								input.form-control(type="password", id="password", name="password")
+							button.btn.btn-default(type="submit") Connexion

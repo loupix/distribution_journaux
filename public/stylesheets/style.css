@@ -1,0 +1,238 @@
+
+.show-xs {
+    display:none;
+}
+
+@media screen and (max-width: 767px) {
+    .hidden-xs, md-content {
+        display:none;
+    }
+    .aide{
+      display:none !important;
+    }
+
+    .show-xs {
+        display:block;
+    }
+}
+
+
+html{
+  height:100%;
+  background:none;
+  border:none;
+}
+
+footer, md-menu, ng-view{
+  border:none;
+  background:none;
+}
+
+
+
+body {
+  padding: 25px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:#fafafa;
+  height:100%;
+}
+
+
+a {
+  color: #00B7FF;
+}
+
+.top {
+    fill: red;
+    z-index: 100;
+}
+
+.content {
+  padding: 10px;
+  overflow:hidden;
+  background:none;
+}
+
+
+.content{
+  background-image:url("/images/manytransparent.png") !important;
+  background-repeat: no-repeat !important;
+  background-size: 24% 50% !important;
+  background-attachment: fixed !important;
+  background-position: center !important; 
+  background-position-y: 2%;
+}
+
+
+.footer {
+  padding: 30px;
+/*  position:relative;
+  top:100%;
+*/}
+
+
+
+
+
+fieldset.scheduler-border, fieldset.scheduler-border-2, fieldset.scheduler-border-3 {
+    border: 6px solid #bdbcbc !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #bdbcbc;
+            box-shadow:  0px 0px 0px 0px #bdbcbc;
+    -webkit-border-radius: 8px; 
+    -moz-border-radius: 8px; 
+    border-radius:8px;
+}
+
+legend.scheduler-border, legend.scheduler-border-2 {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
+
+
+legend.scheduler-border-2 {
+    padding:0 20px; /* To give a bit of padding on the left and right */
+    margin-left:40%;
+    font-size:1em;
+    border-bottom:none;
+}
+
+fieldset.scheduler-border-2 label{
+  font-size:1.5rem;
+  cursor:pointer;
+}
+
+
+
+fieldset.scheduler-border-3 div{
+  height:100%;
+  max-height:925px;
+  overflow:auto;
+}
+
+
+
+.pathRegion{
+	cursor:pointer;
+}
+.pathActive{
+	cursor:pointer;
+}
+
+
+
+
+.text-on-pannel {
+  background: #fff none repeat scroll 0 0;
+  height: auto;
+  margin-left: 20px;
+  padding: 3px 5px;
+  position: absolute;
+  margin-top: -47px;
+  border: 1px solid #337ab7;
+  border-radius: 8px;
+}
+
+.panel {
+  /* for text on pannel */
+  margin-top: 27px !important;
+}
+
+.panel-body {
+  padding-top: 30px !important;
+}
+
+
+
+.form-group > label{
+	font-size:1.1em;
+}
+
+.form-group > label.nord{
+	color:#fbbd13;
+}
+.form-group > label.est{
+	color:#3871c2;
+}
+.form-group > label.centre{
+	color:#5d2491;
+}
+.form-group > label.sud{
+	color:#c01a2c;
+}
+.form-group > label.national{
+  color:#00a650;
+}
+
+
+label.control-label{
+  font-size:1.6em;
+  margin-left:1em;
+}
+
+
+label.checkbox-inline{
+  font-size:1.4em;
+}
+
+
+i.fa.fa-remove{
+	color:#c01a2c;
+	cursor:pointer;
+}
+
+
+
+h1.titre{
+  margin-top:1em;
+}
+
+
+div.aide a{
+  margin:0;
+  margin-top:1.4em;
+  left:0;
+  width:210px;
+  background-color:#00a650;
+/*  padding:0.9em;
+  padding-top:1.3em;
+  padding-bottom:1px;*/
+  border-radius:0 8px 8px 0;
+  display: block;
+  position:relative;
+  margin-left:-25px;
+  height:7%;
+}
+
+
+
+div.aide p{
+  position:relative;
+  line-height: 0.1em;
+  color:white;
+  font-size:1.2em;
+  width:10em;
+}
+
+div.aide p span{
+  padding-left:10px;
+}
+
+div.aide a{
+  cursor:pointer;
+  color:white;
+}
+
+
+div.aide a:hover{
+  text-decoration: none;
+}
+
+
+.md-icon-button, .md-menu{
+  margin:0 !important;
+  padding:0 !important;
+}

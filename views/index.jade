@@ -1,0 +1,30 @@
+extends layout
+
+block content
+	.text-center.ng-hide.content.hidden-xs(ng-show="loading")
+		img.img-responsive(src="/images/logo-1.png")
+		div
+			i.fa.fa-spinner.fa-5x.fa-spin
+		h3 {{ langData[49] }}
+		p page {{ current }} vers la page {{ next }}
+	.show-xs.text-center
+		img.img-responsive(src="/images/logo-1.png")
+		br
+		br
+		br
+		h3 L'application n'est pas disponnible sur ce format d'écran.
+	.text-center.ng-hide(ng-show="msie")
+		img.img-responsive(src="/images/logo-1.png")
+		br
+		br
+		br
+		h3 Navigateur non compatible. Veuillez utiliser un navigateur plus récent.
+	ng-view.md-padding(ng-hide="loading || msie", flex)
+
+block footer
+	.container
+		.text-right
+			a(href="https://www.mangopay.com/terms/end-user-terms-and-conditions/Mangopay_Terms-FR.pdf", target="_blank") {{ langData[53] }}
+			|  Copyright © 2018 
+			a.copyright__link(href="http://blue-screen.co", target="_blank") Blue-Screen.co
+			|  All rights reserved.

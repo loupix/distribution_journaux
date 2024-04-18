@@ -1,0 +1,51 @@
+extends layout
+
+block content
+		md-content.content(flex)
+			.text-center
+				h1 {{ langData[50] }}
+				h3 {{ langData[51] }}
+				img.img-responsive(src="/images/logo-1.png")
+		.content(ng-controller="reglementCtrl")
+			br
+			br
+			br
+			fieldset.scheduler-border
+				legend.scheduler-border Réglement en ligne
+				div.form-group.row
+					label.col-sm-4.control-label(for="entreprise") Status Carte bleu
+					if error
+						div.col-sm-6 
+							font(color="red") Erreur #{errorCode}   #{error}
+					else if card !== undefined && card.Status != "VALIDATED"
+						.col-md-8 
+							font(color="red") #{card.ResultMessage}
+					else
+						div.col-sm-6 
+							font(color="green") OK
+				div.form-group.row
+					label.col-sm-4.control-label(for="entreprise") Status Débit
+					if payIn !== undefined && payIn.Status != "SUCCEEDED"
+						div.col-sm-6 
+							font(color="red") Erreur : 
+							if payIn.ResultMessage == null
+								span Inconnus
+							else
+								span #{payIn.ResultMessage}
+					else
+						div.col-sm-6 
+							font(color="green") OK
+
+				div.form-group.row
+					label.col-sm-4.control-label(for="entreprise") Status Crédit
+					if payOut !== undefined && payOut.Status != "CREATED"
+						div.col-sm-6 
+							font(color="red") Erreur : 
+							if payOut.ResultMessage == null
+								span Inconnus
+							else
+								span #{payOut.ResultMessage}
+					else
+						div.col-sm-6 
+							font(color="green") OK
+			

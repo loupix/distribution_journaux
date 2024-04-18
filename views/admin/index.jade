@@ -1,0 +1,51 @@
+extends layout
+
+block content
+	.content(ng-controller="adminAccueilCtrl")
+		br
+		br
+		br
+		fieldset.scheduler-border
+			legend.scheduler-border Entreprises ayant un Code de promotions
+			table.table.table-striped
+				thead
+					tr
+						td Entreprise
+						td Adresse
+						td Activité
+						td Email
+						td Téléphone
+						td Montant Réduction
+						td Montant Pourcentage
+						td Date d'ajout - Date de modifs
+						td Options
+
+				tbody
+					tr(ng-repeat="prom in promotions")
+						td {{ prom.client.entreprise }}
+						td 
+							span {{ prom.client.adresse }}
+							br
+							span {{ prom.client.ville }} - {{ prom.client.pays }}
+						td {{ prom.client.activite }}
+						td {{ prom.client.email }}
+						td {{ prom.client.telephone }}
+						td {{ prom.reduction.montant }}
+						td {{ prom.reduction.percent }}
+						td {{ prom.createdAt | date : "short" }} - {{ prom.createdAt | date : "short" }}
+						td.row
+							button.col-md-5.btn.btn-info(ng-click="modifProm(prom)") Modifier
+							button.col-md-6.btn.btn-danger(ng-click="delProm(prom)") Supprimer
+				tfoot
+					tr
+						td.form-group(colspan="4")
+							label(for="entreprise") Nom de l'entreprise
+							select.form-control(name="entrprise", id="entreprise", ng-model="promotion.entreprise", ng-options="client.entreprise for client in clients track by client._id")
+						td.form-group(colspan="2")
+							label(for="montant") montant en €
+							input.form-control(type="number", name="montant",id="montant",ng-model="promotion.reduction.montant")
+						td.form-group(colspan="2")
+							label(for="montant") montant en %
+							input.form-control(type="number", name="montant",id="montant",ng-model="promotion.reduction.percent")
+						td.form-group(colspan="1")
+							button.btn.btn-success(ng-click="addProm()") Ajouter la réduction

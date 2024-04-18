@@ -1,0 +1,72 @@
+//- img(src="/images/logo-1.png")
+h3 Confirmation de commande DISTRAL
+h3 Nous vous confirmons la bonne réception de votre commande.
+fieldset
+	legend Details Commande
+	div
+		strong Date
+	div
+		span #{moment(commande.updatedAt).format('dddd, Do MMMM YYYY, h:mm:ss a')}
+	br
+	div
+		strong Client
+	div
+		span Entreprise&nbsp;
+		span #{client.entreprise}
+		br
+		span Téléphone&nbsp;
+		span #{client.telephone}
+		br
+		span Adresse&nbsp;
+		span #{client.adresse} - #{client.ville} - #{client.pays}
+		br
+		span N° TVA&nbsp;
+		span #{client.numTva}
+		br
+		span N° TVA intracommunautaire&nbsp;
+		span #{client.numTvaIntra}
+		br
+	br
+	br
+	div
+		strong Intitulé commande : #{commande.intitule}
+	div Poids unitaire en g : #{commande.poid}
+	div Format : #{commande.format}
+	//- div Contenu du document : #{commande.contenu}
+	div Distribution : #{commande.distribution} 
+
+	fieldset
+		legend Zone de distribution
+		each zone in commande.zones
+			div #{zone.Ville} - #{zone.region}
+		br
+		strong Nombre de ville #{commande.zones.length}
+		
+		br
+		strong Total Net #{totalNet}
+	if commande.total >= 0
+		br
+		strong Montant HT : #{commande.totalHT}&nbsp;€
+		br
+		strong Montant TTC : #{commande.total}&nbsp;€
+	else
+		br
+		strong Montant sur devis
+
+strong Conditions de distribution :
+p Les imprimés doivent être livrés franco de port chez Distral SA à Ehlerange (Lux) ou toute autre adresse spécifiée par nos soins
+p • Les imprimés doivent être conditionnés par paquets identiques, de même volume et de même quantité (paquets minimum de 100 exemplaires et maximum de 1000 exemplaires et ne dépassant pas 8kg). Quelle qu’en soit la taille, les livraisons en vrac ne sont pas acceptées
+p • Les imprimés doivent être emballés de sorte que nous puissions les manipuler sans risque de les abîmer. Pour cette raison, les paquets et boîtes seront fixés fermement sur la palette
+p • Nous acceptons uniquement les zones et découpes de distribution Distral. Toute autre zone ne sera pas prise en compte. Les commandes doivent être remises au plus tard 6 jours avant la date de distribution (soit le mardi). La livraison des documents doit parvenir à notre dépôt au plus tard le mercredi précédant la distribution. Tout retard, report ou commande annulés 24h avant la date de distribution engendrent des frais de fonctionnement.
+p Doléances : Il est obligatoire que la doléance soit remise au plus tard dans les 5 jours ouvrables suivants la distribution avec impérativement: Le nom de la rue, le numéro, le code postal, la localité et, si possible, le nom du (de la) plaignant(e) afin que Distral SA puisse contrôler le bienfondé de la doléance et procéder à une éventuelle rectification sur le terrain.
+
+
+strong Distral sa
+br
+strong Zone du Zare îlot ouest 16
+br
+strong L-4384 Ehlerange
+br
+strong Luxembourg
+br
+strong Tél.: 26 52 55 1 Fax : 26 52 55 12
